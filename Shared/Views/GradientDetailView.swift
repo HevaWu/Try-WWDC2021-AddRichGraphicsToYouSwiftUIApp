@@ -44,9 +44,10 @@ struct GradientDetailView: View {
                 Spacer()
                 
                 Text("\(gradient.stops.count) colors")
+                    .foregroundStyle(.secondary)
             }
             .padding()
-            .background(.cyan, in: RoundedRectangle(cornerRadius: 12))
+            .background(.thinMaterial)
         }
         .toolbar {
             Button(isEditing ? "Done" : "Edit") {
