@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ParticleVisualizer: View {
     var gradients: [Gradient]
-    @StateObject private var model = ParticleModel()
 
     var body: some View {
-        Canvas {
-            
+        Canvas { context, size in
+            let image = Image(systemName: "sparkle")
+            context.draw(image, at: CGPoint(x: 0.5 * size.width, y: 0.5 * size.height))
         }
     }
 }
