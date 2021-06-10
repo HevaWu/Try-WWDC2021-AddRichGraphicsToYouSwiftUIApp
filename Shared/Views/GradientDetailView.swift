@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-The gradient detail view.
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ The gradient detail view.
+ */
 
 import SwiftUI
 
@@ -11,29 +11,27 @@ struct GradientDetailView: View {
     @Binding var gradient: GradientModel
     @State private var isEditing = false
     @State private var selectedStopID: Int?
-
+    
     var body: some View {
-        // Stack on top of each other
-        ZStack(alignment: .bottom) {
-            VStack {
-                if !isEditing {
-                    LinearGradient(gradient: gradient.gradient, startPoint: .leading, endPoint: .trailing)
-                        .ignoresSafeArea(edges: .bottom)
-                } else {
-                    GradientControl(gradient: $gradient, selectedStopID: $selectedStopID)
-                        .padding()
-
-                    if let selectedStopID = selectedStopID {
-                        SystemColorList(color: $gradient[stopID: selectedStopID].color) {
-                            gradient.remove(selectedStopID)
-                            self.selectedStopID = nil
-                        }
-                    } else {
-                        SystemColorList.Empty()
+        VStack {
+            if !isEditing {
+                LinearGradient(gradient: gradient.gradient, startPoint: .leading, endPoint: .trailing)
+                    .ignoresSafeArea(edges: .bottom)
+            } else {
+                GradientControl(gradient: $gradient, selectedStopID: $selectedStopID)
+                    .padding()
+                
+                if let selectedStopID = selectedStopID {
+                    SystemColorList(color: $gradient[stopID: selectedStopID].color) {
+                        gradient.remove(selectedStopID)
+                        self.selectedStopID = nil
                     }
+                } else {
+                    SystemColorList.Empty()
                 }
             }
-            
+        }
+        .safeAreaInset(edge: .bottom) {
             HStack {
                 if isEditing {
                     TextField("Name", text: $gradient.name)
@@ -56,7 +54,7 @@ struct GradientDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
     }
-
+    
     private var gradientBackground: some View {
         LinearGradient(gradient: gradient.gradient, startPoint: .leading, endPoint: .trailing)
             .ignoresSafeArea(edges: .bottom)
@@ -68,7 +66,7 @@ struct Detail_Previews: PreviewProvider {
         NavigationView {
             GradientDetailView(
                 gradient: .constant(GradientModel(colors: [.red, .orange, .yellow, .green, .blue, .indigo, .purple])))
-                
+            
         }
     }
 }
