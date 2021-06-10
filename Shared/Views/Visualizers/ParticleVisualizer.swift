@@ -42,6 +42,7 @@ struct ParticleVisualizer: View {
         .onTapGesture {
             count += 1
         }
+        .accessibilityLabel("ParticleVisualizer")
     }
 }
 
