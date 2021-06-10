@@ -9,39 +9,29 @@ import SwiftUI
 
 struct ParticleVisualizer: View {
     var gradients: [Gradient]
-    @State private var count = 2
+    @State private var model = ParticleModel()
     
     var body: some View {
         TimelineView(.animation) { timeline in
             Canvas { context, size in
                 let now = timeline.date
                     .timeIntervalSinceReferenceDate
-                let angle = Angle.degrees(now.remainder(dividingBy: 3) * 120)
-                let x = cos(angle.radians)
-                var image = context.resolve(Image(systemName: "sparkle"))
-                image.shading = .color(.blue)
-                let imageSize = image.size
-                
+                model.update(time: now, size: size)
+            
                 // blendMode combine color
                 context.blendMode = .screen
-                for i in 0..<count {
-                    let frame = CGRect(
-                        x: 0.5 * size.width + Double(i) * imageSize.width * x,
-                        y: 0.5 * size.height,
-                        width: imageSize.width,
-                        height: imageSize.height
-                    )
-                    
+                
+                model.forEachParticle { particle in
                     var innerContext = context
-                    innerContext.opacity = 0.5
-                    innerContext.fill(Ellipse().path(in: frame), with: .color(.cyan))
-                    context.draw(image, in: frame)
+                    innerContext.opacity = particle.opacity
+                    innerContext.fill(Ellipse().path(in: particle.frame), with: particle.shading(gradients))
                 }
             }
         }
-        .onTapGesture {
-            count += 1
-        }
+        .gesture(
+            DragGesture(minimumDistance: 0)
+                .onEnded { model.add(position: $0.location) }
+        )
         .accessibilityLabel("ParticleVisualizer")
     }
 }
