@@ -18,6 +18,7 @@ struct GradientDetailView: View {
             VStack {
                 if !isEditing {
                     LinearGradient(gradient: gradient.gradient, startPoint: .leading, endPoint: .trailing)
+                        .ignoresSafeArea(edges: .bottom)
                 } else {
                     GradientControl(gradient: $gradient, selectedStopID: $selectedStopID)
                         .padding()
@@ -44,8 +45,8 @@ struct GradientDetailView: View {
                 
                 Text("\(gradient.stops.count) colors")
             }
+            .padding()
         }
-        .padding()
         .toolbar {
             Button(isEditing ? "Done" : "Edit") {
                 isEditing.toggle()
