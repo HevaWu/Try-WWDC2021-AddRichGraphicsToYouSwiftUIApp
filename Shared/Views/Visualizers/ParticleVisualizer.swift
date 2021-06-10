@@ -15,13 +15,17 @@ struct ParticleVisualizer: View {
             let image = context.resolve(Image(systemName: "sparkle"))
             let imageSize = image.size
             for i in 0..<10 {
-                context.draw(
-                    image,
-                    at: CGPoint(
-                        x: 0.5 * size.width + Double(i) * imageSize.width,
-                        y: 0.5 * size.height
-                    )
+                let frame = CGRect(
+                    x: 0.5 * size.width + Double(i) * imageSize.width,
+                    y: 0.5 * size.height,
+                    width: imageSize.width,
+                    height: imageSize.height
                 )
+                
+                var innerContext = context
+                innerContext.opacity = 0.5
+                innerContext.fill(Ellipse().path(in: frame), with: .color(.cyan))
+                context.draw(image, in: frame)
             }
         }
     }
