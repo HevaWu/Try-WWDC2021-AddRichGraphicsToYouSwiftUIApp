@@ -43,7 +43,7 @@ struct GradientDetailView: View {
                 
                 Spacer()
                 
-                Text("\(gradient.stops.count) \(Text("colors").foregroundColor(.red))")
+                Text("\(gradient.stops.count) 🎉 \(Text("colors").foregroundColor(.red))")
                     .foregroundStyle(.secondary)
             }
             .padding()
