@@ -46,6 +46,7 @@ struct GradientDetailView: View {
                 Text("\(gradient.stops.count) colors")
             }
             .padding()
+            .background(.cyan, in: RoundedRectangle(cornerRadius: 12))
         }
         .toolbar {
             Button(isEditing ? "Done" : "Edit") {
@@ -66,6 +67,7 @@ struct Detail_Previews: PreviewProvider {
         NavigationView {
             GradientDetailView(
                 gradient: .constant(GradientModel(colors: [.red, .orange, .yellow, .green, .blue, .indigo, .purple])))
+                
         }
     }
 }
