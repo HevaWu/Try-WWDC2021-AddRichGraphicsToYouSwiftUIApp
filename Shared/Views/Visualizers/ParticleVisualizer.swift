@@ -12,8 +12,11 @@ struct ParticleVisualizer: View {
     
     var body: some View {
         Canvas { context, size in
-            let image = context.resolve(Image(systemName: "sparkle"))
+            var image = context.resolve(Image(systemName: "sparkle"))
+            image.shading = .color(.blue)
             let imageSize = image.size
+            
+            context.blendMode = .screen
             for i in 0..<10 {
                 let frame = CGRect(
                     x: 0.5 * size.width + Double(i) * imageSize.width,
