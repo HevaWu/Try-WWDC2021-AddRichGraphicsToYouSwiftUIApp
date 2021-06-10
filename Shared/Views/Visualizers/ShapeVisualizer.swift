@@ -44,7 +44,7 @@ struct ShapeVisualizer: View {
         .accessibilityAction(named: "Reposition") {
             state.reposition()
         }
-        .drawingGroup()
+        .drawingGroup() // combine all of views in single view to draw
     }
 }
 
