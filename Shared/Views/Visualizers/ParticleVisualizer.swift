@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ParticleVisualizer: View {
     var gradients: [Gradient]
+    @State private var count = 2
     
     var body: some View {
         TimelineView(.animation) { timeline in
@@ -23,7 +24,7 @@ struct ParticleVisualizer: View {
                 
                 // blendMode combine color
                 context.blendMode = .screen
-                for i in 0..<10 {
+                for i in 0..<count {
                     let frame = CGRect(
                         x: 0.5 * size.width + Double(i) * imageSize.width * x,
                         y: 0.5 * size.height,
@@ -37,6 +38,9 @@ struct ParticleVisualizer: View {
                     context.draw(image, in: frame)
                 }
             }
+        }
+        .onTapGesture {
+            count += 1
         }
     }
 }
